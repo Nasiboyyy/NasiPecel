@@ -25,7 +25,6 @@ public class LaporanFrame extends JFrame {
     private final Color garis = new Color(225, 232, 226);
     private final Color merah = new Color(190, 65, 65);
     private final Color biru = new Color(48, 110, 165);
-    private final Color oranye = new Color(215, 145, 48);
 
     private JTable table;
     private DefaultTableModel model;
@@ -137,26 +136,48 @@ public class LaporanFrame extends JFrame {
         add(root);
     }
 
+    // ================= HEADER DAN NAVIGASI =================
+
     private JPanel buatHeader() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(putih);
         panel.setBorder(new CompoundBorder(
                 new MatteBorder(0, 0, 1, 0, garis),
-                new EmptyBorder(17, 30, 17, 30)
+                new EmptyBorder(13, 25, 13, 25)
         ));
 
-        JLabel logo = new JLabel("🌿  ERP NASI PECEL");
-        logo.setFont(new Font("SansSerif", Font.BOLD, 19));
+        JPanel kiri = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 0));
+        kiri.setBackground(putih);
+
+        JButton btnKembali = buatTombol("← Kembali ke Dashboard", hijau);
+        btnKembali.setFont(new Font("SansSerif", Font.BOLD, 12));
+
+        btnKembali.addActionListener(e -> kembaliKeDashboard());
+
+        JLabel logo = new JLabel("🌿 ERP NASI PECEL");
+        logo.setFont(new Font("SansSerif", Font.BOLD, 18));
         logo.setForeground(hijau);
+
+        kiri.add(btnKembali);
+        kiri.add(logo);
 
         JLabel admin = new JLabel("Administrator  ●");
         admin.setFont(new Font("SansSerif", Font.BOLD, 12));
         admin.setForeground(hijauTerang);
 
-        panel.add(logo, BorderLayout.WEST);
+        panel.add(kiri, BorderLayout.WEST);
         panel.add(admin, BorderLayout.EAST);
 
         return panel;
+    }
+
+    // Fungsi kembali ke dashboard
+    private void kembaliKeDashboard() {
+        dispose();
+
+        DashboardFrame dashboard = new DashboardFrame();
+        dashboard.setLocationRelativeTo(null);
+        dashboard.setVisible(true);
     }
 
     private JPanel buatJudul() {
@@ -361,39 +382,39 @@ public class LaporanFrame extends JFrame {
         table.setSelectionForeground(teks);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-JTableHeader header = table.getTableHeader();
-header.setPreferredSize(new Dimension(0, 48));
-header.setBackground(new Color(31, 70, 46));
-header.setForeground(Color.WHITE);
-header.setFont(new Font("SansSerif", Font.BOLD, 13));
-header.setOpaque(true);
-header.setBorder(new MatteBorder(
-        0, 0, 2, 0, new Color(105, 155, 112)
-));
-
-header.setDefaultRenderer(new DefaultTableCellRenderer() {
-    @Override
-    public Component getTableCellRendererComponent(
-            JTable table, Object value,
-            boolean selected, boolean focus,
-            int row, int column) {
-
-        JLabel label = (JLabel) super.getTableCellRendererComponent(
-                table, value, selected, focus, row, column
-        );
-
-        label.setBackground(new Color(31, 70, 46));
-        label.setForeground(Color.WHITE);
-        label.setFont(new Font("SansSerif", Font.BOLD, 13));
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setOpaque(true);
-        label.setBorder(new MatteBorder(
-                0, 0, 1, 1, new Color(75, 112, 83)
+        JTableHeader header = table.getTableHeader();
+        header.setPreferredSize(new Dimension(0, 48));
+        header.setBackground(new Color(31, 70, 46));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("SansSerif", Font.BOLD, 13));
+        header.setOpaque(true);
+        header.setBorder(new MatteBorder(
+                0, 0, 2, 0, new Color(105, 155, 112)
         ));
 
-        return label;
-    }
-});
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                    JTable table, Object value,
+                    boolean selected, boolean focus,
+                    int row, int column) {
+
+                JLabel label = (JLabel) super.getTableCellRendererComponent(
+                        table, value, selected, focus, row, column
+                );
+
+                label.setBackground(new Color(31, 70, 46));
+                label.setForeground(Color.WHITE);
+                label.setFont(new Font("SansSerif", Font.BOLD, 13));
+                label.setHorizontalAlignment(SwingConstants.CENTER);
+                label.setOpaque(true);
+                label.setBorder(new MatteBorder(
+                        0, 0, 1, 1, new Color(75, 112, 83)
+                ));
+
+                return label;
+            }
+        });
 
         DefaultTableCellRenderer tengah = new DefaultTableCellRenderer();
         tengah.setHorizontalAlignment(SwingConstants.CENTER);
@@ -520,7 +541,6 @@ header.setDefaultRenderer(new DefaultTableCellRenderer() {
             }
         }
 
-        // Tampilkan transaksi terbaru lebih dahulu.
         for (int i = hasil.size() - 1; i >= 0; i--) {
             Transaksi trx = hasil.get(i);
 
@@ -849,6 +869,7 @@ header.setDefaultRenderer(new DefaultTableCellRenderer() {
         tombol.setFocusPainted(false);
         tombol.setBorder(new EmptyBorder(10, 15, 10, 15));
         tombol.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        tombol.setOpaque(true);
 
         Color warnaAsli = warna;
 

@@ -53,16 +53,16 @@ public class ProduksiFrame extends JFrame {
 
     private void isiDataAwal() {
         daftarProduksi.add(new DataProduksi(
-                "PRD-001", LocalDate.now(), "Nasi Pecel Original",
-                50, 35));
+                "PRD-001", LocalDate.now(),
+                "Nasi Pecel Original", 50, 35));
 
         daftarProduksi.add(new DataProduksi(
-                "PRD-002", LocalDate.now(), "Nasi Pecel Telur",
-                40, 28));
+                "PRD-002", LocalDate.now(),
+                "Nasi Pecel Telur", 40, 28));
 
         daftarProduksi.add(new DataProduksi(
-                "PRD-003", LocalDate.now(), "Nasi Pecel Komplit",
-                30, 20));
+                "PRD-003", LocalDate.now(),
+                "Nasi Pecel Komplit", 30, 20));
 
         daftarProduksi.add(new DataProduksi(
                 "PRD-004", LocalDate.now().minusDays(1),
@@ -82,7 +82,8 @@ public class ProduksiFrame extends JFrame {
         header.setOpaque(false);
 
         JPanel informasi = new JPanel();
-        informasi.setLayout(new BoxLayout(informasi, BoxLayout.Y_AXIS));
+        informasi.setLayout(new BoxLayout(
+                informasi, BoxLayout.Y_AXIS));
         informasi.setOpaque(false);
 
         JLabel judul = new JLabel("Manajemen Produksi");
@@ -103,11 +104,23 @@ public class ProduksiFrame extends JFrame {
         tanggal.setFont(new Font("SansSerif", Font.BOLD, 12));
         tanggal.setForeground(hijau);
 
+        // TOMBOL KEMBALI DASHBOARD
+        JPanel panelKanan = new JPanel(
+                new FlowLayout(FlowLayout.RIGHT, 10, 0));
+        panelKanan.setOpaque(false);
+
+        JButton btnKembali = buatTombol(
+                "← Kembali ke Dashboard", hijau);
+
+        panelKanan.add(btnKembali);
+        panelKanan.add(tanggal);
+
         header.add(informasi, BorderLayout.WEST);
-        header.add(tanggal, BorderLayout.EAST);
+        header.add(panelKanan, BorderLayout.EAST);
 
         // KARTU STATISTIK
-        JPanel statistik = new JPanel(new GridLayout(1, 3, 18, 0));
+        JPanel statistik = new JPanel(
+                new GridLayout(1, 3, 18, 0));
         statistik.setOpaque(false);
 
         lblTotalProduksi = new JLabel("0 Porsi");
@@ -127,21 +140,24 @@ public class ProduksiFrame extends JFrame {
                 new Color(190, 130, 45)));
 
         // PANEL TABEL
-        JPanel panelTabel = new JPanel(new BorderLayout(0, 15));
+        JPanel panelTabel = new JPanel(
+                new BorderLayout(0, 15));
         panelTabel.setBackground(putih);
         panelTabel.setBorder(new CompoundBorder(
                 new LineBorder(garis, 1, true),
                 new EmptyBorder(20, 20, 20, 20)));
 
         // TOOLBAR
-        JPanel toolbar = new JPanel(new BorderLayout(10, 10));
+        JPanel toolbar = new JPanel(
+                new BorderLayout(10, 10));
         toolbar.setOpaque(false);
 
         JLabel labelData = new JLabel("Data Produksi");
         labelData.setFont(new Font("SansSerif", Font.BOLD, 17));
         labelData.setForeground(hijau);
 
-        JPanel pencarian = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
+        JPanel pencarian = new JPanel(
+                new FlowLayout(FlowLayout.RIGHT, 8, 0));
         pencarian.setOpaque(false);
 
         txtCari = new JTextField(17);
@@ -151,7 +167,8 @@ public class ProduksiFrame extends JFrame {
                 new LineBorder(garis, 1, true),
                 new EmptyBorder(5, 10, 5, 10)));
 
-        JButton btnCari = buatTombol("Cari", new Color(80, 100, 85));
+        JButton btnCari = buatTombol(
+                "Cari", new Color(80, 100, 85));
 
         pencarian.add(txtCari);
         pencarian.add(btnCari);
@@ -159,7 +176,7 @@ public class ProduksiFrame extends JFrame {
         toolbar.add(labelData, BorderLayout.WEST);
         toolbar.add(pencarian, BorderLayout.EAST);
 
-        // TABEL
+        // TABEL PRODUKSI
         String[] kolom = {
             "No", "Kode Produksi", "Tanggal", "Nama Menu",
             "Diproduksi", "Terjual", "Sisa", "Status"
@@ -181,33 +198,40 @@ public class ProduksiFrame extends JFrame {
         table.setSelectionForeground(hijau);
         table.setGridColor(garis);
         table.setShowVerticalLines(false);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setSelectionMode(
+                ListSelectionModel.SINGLE_SELECTION);
         table.setFillsViewportHeight(true);
 
         JTableHeader headerTabel = table.getTableHeader();
         headerTabel.setPreferredSize(new Dimension(0, 45));
         headerTabel.setBackground(hijau);
         headerTabel.setForeground(putih);
-        headerTabel.setFont(new Font("SansSerif", Font.BOLD, 12));
+        headerTabel.setFont(
+                new Font("SansSerif", Font.BOLD, 12));
         headerTabel.setOpaque(true);
         headerTabel.setReorderingAllowed(false);
 
-        headerTabel.setDefaultRenderer(new DefaultTableCellRenderer() {
+        headerTabel.setDefaultRenderer(
+                new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(
                     JTable t, Object value, boolean selected,
                     boolean focus, int row, int column) {
 
-                JLabel label = (JLabel) super.getTableCellRendererComponent(
-                        t, value, selected, focus, row, column);
+                JLabel label = (JLabel)
+                        super.getTableCellRendererComponent(
+                                t, value, selected, focus, row, column);
 
                 label.setBackground(hijau);
                 label.setForeground(putih);
-                label.setFont(new Font("SansSerif", Font.BOLD, 12));
-                label.setHorizontalAlignment(SwingConstants.CENTER);
+                label.setFont(
+                        new Font("SansSerif", Font.BOLD, 12));
+                label.setHorizontalAlignment(
+                        SwingConstants.CENTER);
                 label.setOpaque(true);
                 label.setBorder(new MatteBorder(
-                        0, 0, 1, 1, new Color(75, 112, 83)));
+                        0, 0, 1, 1,
+                        new Color(75, 112, 83)));
 
                 return label;
             }
@@ -221,21 +245,27 @@ public class ProduksiFrame extends JFrame {
                     JTable t, Object value, boolean selected,
                     boolean focus, int row, int column) {
 
-                JLabel label = (JLabel) super.getTableCellRendererComponent(
-                        t, value, selected, focus, row, column);
+                JLabel label = (JLabel)
+                        super.getTableCellRendererComponent(
+                                t, value, selected, focus, row, column);
 
-                label.setHorizontalAlignment(SwingConstants.CENTER);
-                label.setFont(new Font("SansSerif", Font.BOLD, 11));
+                label.setHorizontalAlignment(
+                        SwingConstants.CENTER);
+                label.setFont(
+                        new Font("SansSerif", Font.BOLD, 11));
 
                 if (!selected) {
                     String status = value.toString();
 
                     if (status.equals("Habis")) {
-                        label.setForeground(new Color(190, 65, 65));
+                        label.setForeground(
+                                new Color(190, 65, 65));
                     } else if (status.equals("Tersedia")) {
-                        label.setForeground(new Color(35, 130, 75));
+                        label.setForeground(
+                                new Color(35, 130, 75));
                     } else {
-                        label.setForeground(new Color(180, 125, 35));
+                        label.setForeground(
+                                new Color(180, 125, 35));
                     }
                 }
 
@@ -253,7 +283,8 @@ public class ProduksiFrame extends JFrame {
         tombolPanel.setOpaque(false);
 
         JButton btnTambah = buatTombol(
-                "+ Tambah Produksi", new Color(40, 110, 65));
+                "+ Tambah Produksi",
+                new Color(40, 110, 65));
 
         JButton btnEdit = buatTombol(
                 "Edit", new Color(45, 105, 160));
@@ -274,7 +305,8 @@ public class ProduksiFrame extends JFrame {
         panelTabel.add(tombolPanel, BorderLayout.SOUTH);
 
         // SUSUNAN UTAMA
-        JPanel bagianAtas = new JPanel(new BorderLayout(0, 20));
+        JPanel bagianAtas = new JPanel(
+                new BorderLayout(0, 20));
         bagianAtas.setOpaque(false);
         bagianAtas.add(header, BorderLayout.NORTH);
         bagianAtas.add(statistik, BorderLayout.CENTER);
@@ -284,17 +316,23 @@ public class ProduksiFrame extends JFrame {
 
         setContentPane(utama);
 
-        // EVENT TOMBOL
+        // ================= EVENT TOMBOL =================
+
+        btnKembali.addActionListener(e -> {
+            new DashboardFrame().setVisible(true);
+            dispose();
+        });
+
         btnTambah.addActionListener(e -> tambahProduksi());
         btnEdit.addActionListener(e -> editProduksi());
         btnHapus.addActionListener(e -> hapusProduksi());
+
         btnRefresh.addActionListener(e -> {
             txtCari.setText("");
             refreshTabel();
         });
 
         btnCari.addActionListener(e -> refreshTabel());
-
         txtCari.addActionListener(e -> refreshTabel());
 
         refreshTabel();
@@ -302,19 +340,23 @@ public class ProduksiFrame extends JFrame {
 
     // ================= KARTU STATISTIK =================
 
-    private JPanel buatKartu(String judul, JLabel nilai, Color warna) {
+    private JPanel buatKartu(
+            String judul, JLabel nilai, Color warna) {
 
-        JPanel kartu = new JPanel(new BorderLayout(0, 10));
+        JPanel kartu = new JPanel(
+                new BorderLayout(0, 10));
         kartu.setBackground(putih);
         kartu.setBorder(new CompoundBorder(
                 new LineBorder(garis, 1, true),
                 new EmptyBorder(18, 20, 18, 20)));
 
         JLabel labelJudul = new JLabel(judul);
-        labelJudul.setFont(new Font("SansSerif", Font.BOLD, 13));
+        labelJudul.setFont(
+                new Font("SansSerif", Font.BOLD, 13));
         labelJudul.setForeground(abu);
 
-        nilai.setFont(new Font("SansSerif", Font.BOLD, 25));
+        nilai.setFont(
+                new Font("SansSerif", Font.BOLD, 25));
         nilai.setForeground(warna);
 
         kartu.add(labelJudul, BorderLayout.NORTH);
@@ -329,7 +371,8 @@ public class ProduksiFrame extends JFrame {
 
         model.setRowCount(0);
 
-        String cari = txtCari.getText().trim().toLowerCase();
+        String cari = txtCari.getText()
+                .trim().toLowerCase();
 
         int totalProduksi = 0;
         int totalTerjual = 0;
@@ -360,9 +403,12 @@ public class ProduksiFrame extends JFrame {
             });
         }
 
-        lblTotalProduksi.setText(totalProduksi + " Porsi");
-        lblTotalTerjual.setText(totalTerjual + " Porsi");
-        lblTotalSisa.setText(totalSisa + " Porsi");
+        lblTotalProduksi.setText(
+                totalProduksi + " Porsi");
+        lblTotalTerjual.setText(
+                totalTerjual + " Porsi");
+        lblTotalSisa.setText(
+                totalSisa + " Porsi");
     }
 
     // ================= TAMBAH PRODUKSI =================
@@ -370,7 +416,8 @@ public class ProduksiFrame extends JFrame {
     private void tambahProduksi() {
 
         JTextField txtKode = new JTextField(
-                String.format("PRD-%03d", daftarProduksi.size() + 1));
+                String.format("PRD-%03d",
+                        daftarProduksi.size() + 1));
 
         JTextField txtTanggal = new JTextField(
                 LocalDate.now().format(formatter));
@@ -379,7 +426,8 @@ public class ProduksiFrame extends JFrame {
         JTextField txtProduksi = new JTextField();
 
         JPanel form = buatForm(
-                txtKode, txtTanggal, txtMenu, txtProduksi);
+                txtKode, txtTanggal,
+                txtMenu, txtProduksi);
 
         int hasil = JOptionPane.showConfirmDialog(
                 this, form, "Tambah Data Produksi",
@@ -390,19 +438,24 @@ public class ProduksiFrame extends JFrame {
 
         try {
             String kode = txtKode.getText().trim();
+
             LocalDate tanggal = LocalDate.parse(
                     txtTanggal.getText().trim(), formatter);
+
             String menu = txtMenu.getText().trim();
+
             int produksi = Integer.parseInt(
                     txtProduksi.getText().trim());
 
-            if (kode.isEmpty() || menu.isEmpty() || produksi <= 0) {
+            if (kode.isEmpty()
+                    || menu.isEmpty()
+                    || produksi <= 0) {
                 throw new IllegalArgumentException();
             }
 
             if (cariKode(kode) != null) {
-                JOptionPane.showMessageDialog(this,
-                        "Kode produksi sudah digunakan.");
+                JOptionPane.showMessageDialog(
+                        this, "Kode produksi sudah digunakan.");
                 return;
             }
 
@@ -411,15 +464,17 @@ public class ProduksiFrame extends JFrame {
 
             refreshTabel();
 
-            JOptionPane.showMessageDialog(this,
-                    "Data produksi berhasil ditambahkan.");
+            JOptionPane.showMessageDialog(
+                    this, "Data produksi berhasil ditambahkan.");
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
+            JOptionPane.showMessageDialog(
+                    this,
                     "Periksa kembali data yang dimasukkan.\n"
                     + "Tanggal: dd-MM-yyyy\n"
                     + "Jumlah produksi harus berupa angka positif.",
-                    "Data Tidak Valid", JOptionPane.WARNING_MESSAGE);
+                    "Data Tidak Valid",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -430,8 +485,8 @@ public class ProduksiFrame extends JFrame {
         int baris = table.getSelectedRow();
 
         if (baris == -1) {
-            JOptionPane.showMessageDialog(this,
-                    "Pilih data produksi yang ingin diedit.");
+            JOptionPane.showMessageDialog(
+                    this, "Pilih data produksi yang ingin diedit.");
             return;
         }
 
@@ -441,9 +496,12 @@ public class ProduksiFrame extends JFrame {
         if (data == null) return;
 
         JTextField txtKode = new JTextField(data.kode);
+
         JTextField txtTanggal = new JTextField(
                 data.tanggal.format(formatter));
+
         JTextField txtMenu = new JTextField(data.menu);
+
         JTextField txtProduksi = new JTextField(
                 String.valueOf(data.diproduksi));
 
@@ -451,22 +509,28 @@ public class ProduksiFrame extends JFrame {
                 String.valueOf(data.terjual));
 
         JPanel form = buatForm(
-                txtKode, txtTanggal, txtMenu, txtProduksi);
+                txtKode, txtTanggal,
+                txtMenu, txtProduksi);
 
-        JPanel panelUtama = new JPanel(new BorderLayout(0, 10));
+        JPanel panelUtama = new JPanel(
+                new BorderLayout(0, 10));
         panelUtama.setBackground(hijauMuda);
 
         panelUtama.add(form, BorderLayout.CENTER);
 
-        JPanel tambahan = new JPanel(new GridLayout(1, 2, 12, 5));
+        JPanel tambahan = new JPanel(
+                new GridLayout(1, 2, 12, 5));
         tambahan.setBackground(hijauMuda);
-        tambahan.setBorder(new EmptyBorder(0, 12, 10, 12));
+        tambahan.setBorder(
+                new EmptyBorder(0, 12, 10, 12));
 
         JLabel labelTerjual = new JLabel("Jumlah Terjual");
         labelTerjual.setForeground(hijau);
-        labelTerjual.setFont(new Font("SansSerif", Font.BOLD, 12));
+        labelTerjual.setFont(
+                new Font("SansSerif", Font.BOLD, 12));
 
-        txtTerjual.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        txtTerjual.setFont(
+                new Font("SansSerif", Font.PLAIN, 12));
         txtTerjual.setBorder(new CompoundBorder(
                 new LineBorder(garis, 1, true),
                 new EmptyBorder(7, 9, 7, 9)));
@@ -485,8 +549,10 @@ public class ProduksiFrame extends JFrame {
 
         try {
             String kodeBaru = txtKode.getText().trim();
+
             LocalDate tanggal = LocalDate.parse(
                     txtTanggal.getText().trim(), formatter);
+
             String menu = txtMenu.getText().trim();
 
             int produksi = Integer.parseInt(
@@ -495,8 +561,10 @@ public class ProduksiFrame extends JFrame {
             int terjual = Integer.parseInt(
                     txtTerjual.getText().trim());
 
-            if (kodeBaru.isEmpty() || menu.isEmpty()
-                    || produksi <= 0 || terjual < 0
+            if (kodeBaru.isEmpty()
+                    || menu.isEmpty()
+                    || produksi <= 0
+                    || terjual < 0
                     || terjual > produksi) {
                 throw new IllegalArgumentException();
             }
@@ -504,8 +572,8 @@ public class ProduksiFrame extends JFrame {
             DataProduksi duplikat = cariKode(kodeBaru);
 
             if (duplikat != null && duplikat != data) {
-                JOptionPane.showMessageDialog(this,
-                        "Kode produksi sudah digunakan.");
+                JOptionPane.showMessageDialog(
+                        this, "Kode produksi sudah digunakan.");
                 return;
             }
 
@@ -517,14 +585,16 @@ public class ProduksiFrame extends JFrame {
 
             refreshTabel();
 
-            JOptionPane.showMessageDialog(this,
-                    "Data produksi berhasil diperbarui.");
+            JOptionPane.showMessageDialog(
+                    this, "Data produksi berhasil diperbarui.");
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
+            JOptionPane.showMessageDialog(
+                    this,
                     "Data tidak valid.\n"
                     + "Jumlah terjual tidak boleh melebihi produksi.",
-                    "Kesalahan", JOptionPane.WARNING_MESSAGE);
+                    "Kesalahan",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -535,8 +605,8 @@ public class ProduksiFrame extends JFrame {
         int baris = table.getSelectedRow();
 
         if (baris == -1) {
-            JOptionPane.showMessageDialog(this,
-                    "Pilih data produksi yang ingin dihapus.");
+            JOptionPane.showMessageDialog(
+                    this, "Pilih data produksi yang ingin dihapus.");
             return;
         }
 
@@ -558,8 +628,8 @@ public class ProduksiFrame extends JFrame {
                 daftarProduksi.remove(data);
                 refreshTabel();
 
-                JOptionPane.showMessageDialog(this,
-                        "Data produksi berhasil dihapus.");
+                JOptionPane.showMessageDialog(
+                        this, "Data produksi berhasil dihapus.");
             }
         }
     }
@@ -585,10 +655,14 @@ public class ProduksiFrame extends JFrame {
             JTextField menu,
             JTextField produksi) {
 
-        JPanel panel = new JPanel(new GridLayout(4, 2, 12, 13));
+        JPanel panel = new JPanel(
+                new GridLayout(4, 2, 12, 13));
+
         panel.setBackground(hijauMuda);
-        panel.setBorder(new EmptyBorder(18, 18, 18, 18));
-        panel.setPreferredSize(new Dimension(440, 220));
+        panel.setBorder(
+                new EmptyBorder(18, 18, 18, 18));
+        panel.setPreferredSize(
+                new Dimension(440, 220));
 
         tambahForm(panel, "Kode Produksi", kode);
         tambahForm(panel, "Tanggal (dd-MM-yyyy)", tanggal);
@@ -599,13 +673,17 @@ public class ProduksiFrame extends JFrame {
     }
 
     private void tambahForm(
-            JPanel panel, String judul, JTextField input) {
+            JPanel panel,
+            String judul,
+            JTextField input) {
 
         JLabel label = new JLabel(judul);
-        label.setFont(new Font("SansSerif", Font.BOLD, 12));
+        label.setFont(
+                new Font("SansSerif", Font.BOLD, 12));
         label.setForeground(hijau);
 
-        input.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        input.setFont(
+                new Font("SansSerif", Font.PLAIN, 12));
         input.setBackground(putih);
         input.setForeground(teks);
         input.setCaretColor(hijau);
@@ -619,30 +697,38 @@ public class ProduksiFrame extends JFrame {
 
     // ================= TOMBOL =================
 
-    private JButton buatTombol(String nama, Color warna) {
+    private JButton buatTombol(
+            String nama, Color warna) {
 
         JButton tombol = new JButton(nama);
 
-        tombol.setFont(new Font("SansSerif", Font.BOLD, 12));
+        tombol.setFont(
+                new Font("SansSerif", Font.BOLD, 12));
         tombol.setForeground(putih);
         tombol.setBackground(warna);
         tombol.setFocusPainted(false);
         tombol.setBorderPainted(false);
         tombol.setContentAreaFilled(true);
         tombol.setOpaque(true);
-        tombol.setBorder(new EmptyBorder(11, 17, 11, 17));
-        tombol.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        tombol.setBorder(
+                new EmptyBorder(11, 17, 11, 17));
+        tombol.setCursor(
+                new Cursor(Cursor.HAND_CURSOR));
 
         Color warnaAsli = warna;
 
-        tombol.addMouseListener(new java.awt.event.MouseAdapter() {
+        tombol.addMouseListener(
+                new java.awt.event.MouseAdapter() {
+
             @Override
-            public void mouseEntered(java.awt.event.MouseEvent e) {
+            public void mouseEntered(
+                    java.awt.event.MouseEvent e) {
                 tombol.setBackground(warnaAsli.brighter());
             }
 
             @Override
-            public void mouseExited(java.awt.event.MouseEvent e) {
+            public void mouseExited(
+                    java.awt.event.MouseEvent e) {
                 tombol.setBackground(warnaAsli);
             }
         });
@@ -660,8 +746,12 @@ public class ProduksiFrame extends JFrame {
         int diproduksi;
         int terjual;
 
-        DataProduksi(String kode, LocalDate tanggal,
-                String menu, int diproduksi, int terjual) {
+        DataProduksi(
+                String kode,
+                LocalDate tanggal,
+                String menu,
+                int diproduksi,
+                int terjual) {
 
             this.kode = kode;
             this.tanggal = tanggal;
@@ -675,6 +765,7 @@ public class ProduksiFrame extends JFrame {
         }
 
         String getStatus() {
+
             if (getSisa() == 0) {
                 return "Habis";
             } else if (terjual > 0) {
